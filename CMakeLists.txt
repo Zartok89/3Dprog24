@@ -100,6 +100,7 @@ set(SRC_FILES
 add_subdirectory(libs/glfw-3.3.9)
 add_subdirectory(libs/assimp)
 add_subdirectory(libs/glm/glm)
+add_subdirectory(libs/eigen)
 
 # Create project executable
 add_executable(${PROJECT_NAME} ${IMGUI_HEADERS} ${IMGUI_SOURCE} ${HEADER_FILES} ${SRC_FILES})
