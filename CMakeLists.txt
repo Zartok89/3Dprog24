@@ -13,9 +13,29 @@ project ("FinalCompulsory2024")
 
 # Add the directory containing GLFW's header files
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes/imgui)
 
+#Add IMGUI headers
+set( IMGUI_HEADERS
+    includes/imgui/imgui.h
+    includes/imgui/imconfig.h
+    includes/imgui/imgui_impl_opengl3.h
+    includes/imgui/imgui_impl_glfw.h
+    includes/imgui/imgui_impl_opengl3_loader.h
+)
+
+#Add IMGUI headers
+set( IMGUI_SOURCE
+    includes/imgui/imgui.cpp
+    includes/imgui/imgui_demo.cpp
+    includes/imgui/imgui_draw.cpp
+    includes/imgui/imgui_widgets.cpp
+    includes/imgui/imgui_impl_opengl3.cpp
+    includes/imgui/imgui_impl_glfw.cpp
+    includes/imgui/imgui_tables.cpp
+)
 # Add source to this project's executable.
-add_executable (FinalCompulsory2024 "FinalCompulsory2024.cpp" "FinalCompulsory2024.cpp" "FinalCompulsory2024.h" "glad.c"  "Shader.h" "Shader.cpp" "stb_image.h" "Camera.h" "Camera.cpp")
+add_executable (FinalCompulsory2024 ${IMGUI_HEADERS} ${IMGUI_SOURCE} "FinalCompulsory2024.cpp" "FinalCompulsory2024.cpp" "FinalCompulsory2024.h" "glad.c"  "Shader.h" "Shader.cpp" "stb_image.h" "Camera.h" "Camera.cpp")
 
 target_link_libraries(FinalCompulsory2024 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glfw3.lib)
 
