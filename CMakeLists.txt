@@ -21,6 +21,7 @@ include_directories(
   includes/stbi
   libs/glm
   libs/assimp/include
+  libs/eigen
 )
 
 # IMGUI headers and sources
@@ -75,7 +76,7 @@ set(HEADER_FILES
   core/Lights/DirectionalLight.h 
   core/Lights/PointLight.h  
   core/Physics/PhysicsComponent.h
-)
+ CustomLibrary/MathFunctionsLibrary.h)
 
 set(SRC_FILES
   3Dprog24.cpp
@@ -94,6 +95,7 @@ set(SRC_FILES
   core/Skybox/Skybox.cpp  
   core/ModelLoader/AssimpLoader.cpp
   core/ActorController.cpp
+  CustomLibrary/MathFunctionsLibrary.cpp
 )
 
 # External libraries
