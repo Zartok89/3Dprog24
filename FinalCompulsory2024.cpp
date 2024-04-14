@@ -20,6 +20,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Camera.h"
+#include "program/Application.h"
 
 using namespace std;
 
@@ -96,12 +97,17 @@ unsigned int indices[] = {  // note that we start from 0!
 
 int main()
 {
-	// Initiating the GLFW with its correct version and includes
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	Application* app = Application::GetApplication();
+	app->Run();
+
+	//app->InitializeGLFW();
+	//** Same as the code below*
+		// Initiating the GLFW with its correct version and includes
+		//glfwInit();
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	// Creating the GLFW window
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "FinalCompulsory", NULL, NULL);
@@ -164,7 +170,7 @@ int main()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	Shader shader("../../../shaders/shader.vs", "../../../shaders/shader.fs");
+	Shader shader("../../../core/shaders/shader.vs", "../../../core/shaders/shader.fs");
 
 	unsigned int texture;
 	glGenTextures(1, &texture);

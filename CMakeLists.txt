@@ -14,6 +14,7 @@ project ("FinalCompulsory2024")
 # Add the directory containing GLFW's header files
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes/imgui)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/core)
 
 #Add IMGUI headers
 set( IMGUI_HEADERS
@@ -34,9 +35,54 @@ set( IMGUI_SOURCE
     includes/imgui/imgui_impl_glfw.cpp
     includes/imgui/imgui_tables.cpp
 )
-# Add source to this project's executable.
-add_executable (FinalCompulsory2024 ${IMGUI_HEADERS} ${IMGUI_SOURCE} "FinalCompulsory2024.cpp" "FinalCompulsory2024.cpp" "FinalCompulsory2024.h" "glad.c"  "Shader.h" "Shader.cpp" "stb_image.h" "Camera.h" "Camera.cpp")
 
+set (INCLUDE_HEADERS
+
+)
+
+set (INCLUDE_SRC
+
+)
+
+set (LIB_HEADERS
+
+)
+
+set (LIB_SRC
+
+)
+
+set (HEADER_FILES
+FinalCompulsory2024.h
+
+#Program Headers
+core/program/Application.h
+#core/program/Window.h
+
+# Utility Headers
+core/utility/Logger.h
+)
+
+set (SRC_FILES
+FinalCompulsory2024.cpp
+
+#Program source
+core/program/Application.cpp
+#core/program/Window.cpp
+
+# Utility source
+)
+
+# Add source to this project's executable.
+add_executable (FinalCompulsory2024 
+${IMGUI_HEADERS} ${IMGUI_SOURCE} 
+${INCLUDE_HEADERS} ${INCLUDE_SRC}
+${LIB_HEADERS} ${LIB_SRC}
+${HEADER_FILES} ${SRC_FILES}
+"glad.c"  "Shader.h" "Shader.cpp" "stb_image.h" "Camera.h" "Camera.cpp"
+)
+
+#target_link_libraries
 target_link_libraries(FinalCompulsory2024 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glfw3.lib)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
