@@ -14,7 +14,7 @@ public:
      * Initializing all function and contents before rendering
      */
     void InitializingWindow(); // Creating the actual window
-    void RegisterCallback(); // Registering the callbaks to the OS
+    void RegisterCallback(); // Creating local lambda functions to register the callbaks to the OS
     bool LoadContent(); // Check whether the scene content is loaded or not
    // void SetScene(Scene* scene);
 
@@ -33,31 +33,31 @@ public:
 
 
     /*
-     * Callback functions
+     * Callback functions which goes through the scene then to the controller interface
      */
-	void FramebufferSizeCallback(class GLFWwindow* window, int width, int height);
-    void MouseMoveCallback(class GLFWwindow* window, double xpos, double ypos);
-    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-    void MouseScrollCallback(class GLFWwindow* window, double xoffset, double yoffset);
-    void KeyCallback(class GLFWwindow* window, int key, int scancode, int action, int mods);
+	void FramebufferSizeCallback(class GLFWwindow* window, int width, int height); // Callback for the current window size
+    void MouseMoveCallback(class GLFWwindow* window, double xpos, double ypos); // Callback for the mouse position
+    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods); // Callback for the mouse clicks
+    void MouseScrollCallback(class GLFWwindow* window, double xoffset, double yoffset); // Callback for the mouse scroll
+    void KeyCallback(class GLFWwindow* window, int key, int scancode, int action, int mods); // Callback for the keyboard keys
 
     /*
      * Setter function related to the window class
      */
-    void SetWidth(int width) { mWidth = width; }
-    void SetHeight(int height) { mHeight = height; }
+    void SetWidth(int width) { mWidth = width; } // Setting the width of the window
+    void SetHeight(int height) { mHeight = height; } // Setting the height of the window
 
     /*
      * Getter function related to the window class
      */
-    int GetWidth() const { return mWidth; }
-    int GetHeight() const { return mHeight; }
-    class GLFWwindow* GetGLFWWindow() const { return mGLFWWindow; };
+    int GetWidth() const { return mWidth; } // Getting the width of the window
+    int GetHeight() const { return mHeight; } // Getting the height of the window
+    class GLFWwindow* GetGLFWWindow() const { return mGLFWWindow; }; // Getting the current GLFW window
 
 private:
-    std::string mName;
-    int mWidth{1920}, mHeight{1080};
+    std::string mName; // Member function name for the window
+    int mWidth{1920}, mHeight{1080}; // Member function int for size
     
-    Scene* mScene{nullptr};
-    class GLFWwindow* mGLFWWindow{ nullptr };
+    Scene* mScene{nullptr}; // Member class for the scene object
+    class GLFWwindow* mGLFWWindow{ nullptr }; // Member class for the GLFW window
 };
