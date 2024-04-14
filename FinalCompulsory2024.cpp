@@ -30,7 +30,7 @@ const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera("MainCamera", glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -201,7 +201,7 @@ int main()
 	shader.use();
 	shader.setInt("ourTexture", 0);
 
-	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST); ////
 
 	// Our state
 	bool show_demo_window = true;

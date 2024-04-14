@@ -48,6 +48,9 @@ set (LIBS
 set (HEADER_FILES
 FinalCompulsory2024.h
 
+#Actor Headers
+core/actors/Scene.h
+
 #Camera Headers
 core/camera/Camera.h
 
@@ -64,6 +67,9 @@ core/utility/Logger.h
 
 set (SRC_FILES
 FinalCompulsory2024.cpp
+
+#Actor Headers
+core/actors/Scene.cpp
 
 #Camera Headers
 core/camera/Camera.cpp
