@@ -10,7 +10,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Shader.h"
+#include "core/shaders/Shader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -19,8 +19,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Camera.h"
+#include "core/camera/Camera.h"
 #include "program/Application.h"
+#include "utility/Logger.h"
 
 using namespace std;
 
@@ -39,10 +40,10 @@ float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
 // Callbacks to talk with the native OS functions like mouse / keyboard / resizing, etc..
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void mouse_click_callback(GLFWwindow* window, int button, int action, int mods);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height); ////
+void mouse_callback(GLFWwindow* window, double xpos, double ypos); ////
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset); ////
+void mouse_click_callback(GLFWwindow* window, int button, int action, int mods); ////
 
 void processInput(GLFWwindow* window);
 
@@ -110,45 +111,46 @@ int main()
 		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	// Creating the GLFW window
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "FinalCompulsory", NULL, NULL);
-	if (window == NULL) // Exits the window if its null
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1); // Enable vsync
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "FinalCompulsory", NULL, NULL);////
+	if (window == NULL) // Exits the window if its null////
+	{////
+		std::cout << "Failed to create GLFW window" << std::endl;////
+		glfwTerminate();////
+		return -1;////
+	}////
+	glfwMakeContextCurrent(window);////
+	glfwSwapInterval(1); // Enable vsync////
 
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))////
+	{////
+		std::cout << "Failed to initialize GLAD" << std::endl;////
+		return -1;////
+	}////
 
 	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	IMGUI_CHECKVERSION(); ////
+	ImGui::CreateContext();////
+	ImGuiIO& io = ImGui::GetIO(); (void)io;////
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls////
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls////
 
 	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
+	ImGui::StyleColorsDark(); ////
 	//ImGui::StyleColorsLight();
 
 	// Setup Platform/Renderer backends
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(window, true); ////
 
-	const char* glsl_version = "#version 130";
-	ImGui_ImplOpenGL3_Init(glsl_version);
+	ImGui_ImplOpenGL3_Init("#version 130"); ////
+
+
 	glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
 	// Setting the callbacks to what it recieves
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetScrollCallback(window, scroll_callback);
-	glfwSetMouseButtonCallback(window, mouse_click_callback);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); ////
+	glfwSetCursorPosCallback(window, mouse_callback); ////
+	glfwSetScrollCallback(window, scroll_callback); ////
+	glfwSetMouseButtonCallback(window, mouse_click_callback); ////
 
 	// Binding the VBO, VAO and EBO
 	unsigned int VBO, VAO, EBO;
@@ -210,16 +212,16 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		glfwPollEvents();
+		glfwPollEvents(); ////
 		processInput(window);
 
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		// Start the Dear ImGui frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
+		ImGui_ImplOpenGL3_NewFrame(); ////
+		ImGui_ImplGlfw_NewFrame(); ////
+		ImGui::NewFrame(); ////
+
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f); ////
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); ////
 
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		if (show_demo_window)
@@ -245,10 +247,10 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Rendering
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		ImGui::Render(); ////
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); ////
 
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(window); ////
 		glfwPollEvents();
 	}
 
@@ -281,15 +283,17 @@ void processInput(GLFWwindow* window)
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) ////
 {
 	// make sure the viewport matches the new window dimensions; note that width and
 	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, width, height); ////
 }
 
-void mouse_click_callback(GLFWwindow* window, int button, int action, int mods)
+void mouse_click_callback(GLFWwindow* window, int button, int action, int mods) ////
 {
+    LOG_INFO("Cliking!");
+
 	ImGuiIO& io = ImGui::GetIO();
 	if (button >= 0 && button < IM_ARRAYSIZE(io.MouseDown)) {
 		if (action == GLFW_PRESS) {
@@ -301,12 +305,12 @@ void mouse_click_callback(GLFWwindow* window, int button, int action, int mods)
 	}
 
 	// Check if ImGui wants to capture the mouse
-	if (ImGui::GetIO().WantCaptureMouse)
+	if (ImGui::GetIO().WantCaptureMouse) ////
 		return; // ImGui wants to use the mouse, don't do anything else
 }
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
-void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) ////
 {
 	ImGuiIO& io = ImGui::GetIO();
 	io.MousePos = ImVec2(static_cast<float>(xposIn), static_cast<float>(yposIn));
@@ -336,8 +340,10 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) ////
 {
+    LOG_INFO("Scrolling!");
+
 	ImGuiIO& io = ImGui::GetIO();
 	io.MouseWheelH += static_cast<float>(xoffset);
 	io.MouseWheel += static_cast<float>(yoffset);

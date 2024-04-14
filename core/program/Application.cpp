@@ -14,6 +14,7 @@ Application* Application::GetApplication()
 void Application::InitializingApplication()
 {
     InitializeGLFW();
+    //mWindow.InitializingWindow(); 
 }
 
 void Application::InitializeGLFW()

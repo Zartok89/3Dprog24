@@ -36,28 +36,27 @@ set( IMGUI_SOURCE
     includes/imgui/imgui_tables.cpp
 )
 
-set (INCLUDE_HEADERS
-
+set (INCLUDES
+includes/glad.c
+includes/stb_image.h
 )
 
-set (INCLUDE_SRC
-
-)
-
-set (LIB_HEADERS
-
-)
-
-set (LIB_SRC
+set (LIBS
 
 )
 
 set (HEADER_FILES
 FinalCompulsory2024.h
 
+#Camera Headers
+core/camera/Camera.h
+
 #Program Headers
 core/program/Application.h
-#core/program/Window.h
+core/program/Window.h
+
+#Shader Headers
+core/shaders/Shader.h
 
 # Utility Headers
 core/utility/Logger.h
@@ -66,9 +65,15 @@ core/utility/Logger.h
 set (SRC_FILES
 FinalCompulsory2024.cpp
 
+#Camera Headers
+core/camera/Camera.cpp
+
 #Program source
 core/program/Application.cpp
-#core/program/Window.cpp
+core/program/Window.cpp
+
+#Shader Headers
+core/shaders/Shader.cpp
 
 # Utility source
 )
@@ -76,10 +81,8 @@ core/program/Application.cpp
 # Add source to this project's executable.
 add_executable (FinalCompulsory2024 
 ${IMGUI_HEADERS} ${IMGUI_SOURCE} 
-${INCLUDE_HEADERS} ${INCLUDE_SRC}
-${LIB_HEADERS} ${LIB_SRC}
+${INCLUDES} ${LIBS}
 ${HEADER_FILES} ${SRC_FILES}
-"glad.c"  "Shader.h" "Shader.cpp" "stb_image.h" "Camera.h" "Camera.cpp"
 )
 
 #target_link_libraries
