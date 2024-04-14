@@ -48,8 +48,9 @@ set (LIBS
 set (HEADER_FILES
 FinalCompulsory2024.h
 
-#Actor Headers
+#Actor HeadersglfwDestroyWindow
 core/actors/Scene.h
+core/actors/Actor.h
 
 #Camera Headers
 core/camera/Camera.h
@@ -70,6 +71,7 @@ FinalCompulsory2024.cpp
 
 #Actor Headers
 core/actors/Scene.cpp
+core/actors/Actor.cpp
 
 #Camera Headers
 core/camera/Camera.cpp

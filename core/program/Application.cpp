@@ -13,8 +13,10 @@ Application* Application::GetApplication()
 
 void Application::InitializingApplication()
 {
+	LOG_INFO("Application::InitializingApplication");
     InitializeGLFW();
-    //mWindow.InitializingWindow(); 
+    mWindow.InitializingWindow();
+    mWindow.RegisterCallback();
 }
 
 void Application::InitializeGLFW()
@@ -28,11 +30,28 @@ void Application::InitializeGLFW()
 
 void Application::LoadProjectContent()
 {
+	LOG_INFO("Application::LoadContent");
+    mWindow.LoadContent(); 
 }
 
 void Application::Run()
 {
 	InitializingApplication();
+    LoadProjectContent();
 
-    //glfwTerminate();
+    float lastFrame = 0.f;
+
+    while (!mWindow.IsClosed())
+    {
+        float currentFrame = static_cast<float>(glfwGetTime());
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        mWindow.StartFrame();
+        mWindow.Update(deltaTime); 
+        mWindow.Render(deltaTime);
+        mWindow.EndFrame();
+    }
+
+    glfwTerminate();
 }

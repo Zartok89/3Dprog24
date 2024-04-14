@@ -6,15 +6,20 @@
 #include "imgui_impl_opengl3.h"
 #include "utility/Logger.h"
 
-Window::Window(std::string name, /*Scene* scene, */int width, int height)
+Window::Window(std::string name, Scene* scene, int width, int height)
 {
     mName = name;
+    mScene = scene;
     mWidth = width;
     mHeight = height;
 }
 
 Window::~Window()
 {
+	glfwDestroyWindow(mGLFWWindow);
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }
 
 void Window::InitializingWindow()
@@ -84,7 +89,14 @@ void Window::RegisterCallback()
 bool Window::LoadContent()
 {
     LOG_INFO("Window::LoadContent");
+    mScene->LoadContent();
     return true;
+}
+
+void Window::SetScene(Scene* scene)
+{
+	LOG_INFO("Window::SetScene");
+    mScene = scene;
 }
 
 void Window::StartFrame()
@@ -101,11 +113,18 @@ void Window::StartFrame()
 
 void Window::Update(float dt)
 {
-
+    if (mScene)
+    {
+        mScene->UpdatingScene(dt);
+    }
 }
 
 void Window::Render(float dt)
 {
+    if (mScene)
+    {
+        mScene->RenderingScene(dt);
+    }
 }
 
 void Window::EndFrame()
@@ -129,6 +148,11 @@ void Window::FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 void Window::MouseMoveCallback(GLFWwindow* window, double xpos, double ypos)
 {
 	if (ImGui::GetIO().WantCaptureMouse) return;
+
+	if (mScene)
+	{
+		mScene->MouseMoveCallback(this, xpos, ypos);
+	}
 }
 
 void Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
@@ -137,6 +161,11 @@ void Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int
 
     ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
     if (ImGui::GetIO().WantCaptureMouse) return;
+
+	if (mScene)
+	{
+        mScene->MouseButtonCallback(this, button, action, mods);
+	}
 }
 
 void Window::MouseScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
@@ -145,6 +174,11 @@ void Window::MouseScrollCallback(GLFWwindow* window, double xoffset, double yoff
 
     ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
     if (ImGui::GetIO().WantCaptureMouse) return;
+
+	if (mScene)
+	{
+		mScene->MouseScrollCallback(this, xoffset, yoffset);
+	}
 }
 
 void Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -152,4 +186,9 @@ void Window::KeyCallback(GLFWwindow* window, int key, int scancode, int action, 
 	LOG_INFO("Window::KeyCallback");
 
     ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
+
+	if (mScene)
+	{
+        mScene->KeyCallback(this, key, scancode, action, mods);
+	}
 }

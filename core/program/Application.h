@@ -1,8 +1,7 @@
 #pragma once
-#include "Window.h"
 
-//#include <Window.h>
-//#include <Scene.h>
+#include "Window.h"
+#include "actors/Scene.h"
 
 class Application
 {
@@ -23,7 +22,7 @@ class Application
 private:
     Application() = default; // Default constructor
 
-    //Scene mScene{"Scene"}; // Default scene class object
+    Scene mScene{"Scene"}; // Default scene class object
     Window mWindow{"FinalCompulsory", /*&mScene,*/ 1920, 1080}; // Default window class object
 
 };

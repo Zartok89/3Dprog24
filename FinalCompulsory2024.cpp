@@ -255,11 +255,11 @@ int main()
 	}
 
 	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	ImGui_ImplOpenGL3_Shutdown(); ////
+	ImGui_ImplGlfw_Shutdown(); ////
+	ImGui::DestroyContext(); ////
 
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(window); ////
 	glfwTerminate();
 	return 0;
 }

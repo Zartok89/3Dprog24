@@ -1,13 +1,12 @@
 #pragma once
 #include <string>
 #include <imgui_impl_glfw.h>
-
-class Scene;
+#include "actors/Scene.h"
 
 class Window
 {
 public:
-    Window(std::string name, /*Scene* scene, */int width, int height); // Default constructor of Window
+    Window(std::string name, Scene* scene, int width, int height); // Default constructor of Window
     ~Window(); // Deconstructing window and calls these for GLFW and ImGui as well
 
     /*
@@ -16,7 +15,7 @@ public:
     void InitializingWindow(); // Creating the actual window
     void RegisterCallback(); // Creating local lambda functions to register the callbaks to the OS
     bool LoadContent(); // Check whether the scene content is loaded or not
-   // void SetScene(Scene* scene);
+	void SetScene(Scene* scene); // Setting which scene is the current scene operating
 
     /*
      * The GLFW while loop sequence
